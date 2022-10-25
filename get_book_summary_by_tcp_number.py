@@ -62,7 +62,7 @@ def __get_publication_date__(xml) -> str:
             continue
         else:
             four_digit_year = int(text_no_letters_or_punc[:4])
-            if four_digit_year > 1450 and four_digit_year < 1750 and four_digit_year is not "":
+            if four_digit_year > 1450 and four_digit_year < 1750 and four_digit_year != "":
                 publication_date = four_digit_year
 
     return publication_date
@@ -143,12 +143,17 @@ def get_EEBO():
     files = os.listdir(folder)
     start_time = time.time()
 
+    entered_tcp_number = input("Enter EEBO TCP Number (e.g., A00002): ")
+    file = f'{entered_tcp_number}.P4.xml'
 
-    for file in files:
+    while file not in os.listdir(folder):
+        entered_tcp_number = input("Invalid TCP Number. Enter valid TCP number (e.g., A00005): ")
+        file = f'{entered_tcp_number}.P4.xml'
 
-        record_start_time = time.time()
+    else:
+
         tcp_no = str(file).split(".")[0]
-        file = f'{tcp_no}.P4.xml'
+        record_start_time = time.time()
         title = ""
         author = ""
         lines_collected = ""
@@ -159,17 +164,18 @@ def get_EEBO():
         publication_date = __get_publication_date__(xml)
         lines = __get_lines__(xml)
         paragraphs = __get_paragraphs__(xml)
-        print(f"TCP number: {tcp_no}")
-        print(f"Title: {title}")
-        print(f"Author: {author}")
+        print("")
+        print(f"\nTCP number: {tcp_no}")
+        print(f"\nTitle: {title}")
+        print(f"\nAuthor: {author}")
         if publication_date == 9999:
-            print("Error determining publication date")
+            print("\nError determining publication date")
         else:
-            print(f"Publication Year: {publication_date}") 
+            print(f"\nPublication Year: {publication_date}") 
         if (lines is None) or (len(lines) == 0):
-            print("Length of the lines dictionary: 0") 
+            print("\nLength of the lines dictionary: 0") 
             lines_collected = "NA"
-            print(f'Lines sample: {lines_collected}')
+            print(f'\nLines sample: {lines_collected}')
 
         else:
             print("Length of the lines dictionary: ", len(lines))
@@ -177,7 +183,7 @@ def get_EEBO():
             sample_line_number = 0
             if line_dict_length > 6:
                 sample_line_number = random.randint(1, line_dict_length-5)
-                print("Sample lines: ")
+                print(f"\nSample lines: ")
                 print("     ", lines[str(sample_line_number)])
                 print("     ", lines[str(sample_line_number+1)])
                 print("     ", lines[str(sample_line_number+2)])
@@ -188,10 +194,10 @@ def get_EEBO():
                 print(lines_collected)
 
         if (paragraphs is None) or (len(paragraphs) == 0):
-            print("Length of the paragraphs dictionary: 0")  
+            print(f"\nLength of the paragraphs dictionary: 0")  
 
         else:
-            print("Length of the paragraphs dictionary: ", len(paragraphs))
+            print(f"\nLength of the paragraphs dictionary: ", len(paragraphs))
         
         if len(paragraphs) > 1:
             sample_paragraph_number = random.randint(1, (len(paragraphs)))
@@ -200,24 +206,21 @@ def get_EEBO():
                 sample_paragraph_number = random.randint(1, (len(paragraphs)))
                 if time.time() > timeout:
                     sample_paragraph = paragraphs[str(sample_paragraph_number)]
-                    print("Sample paragraph: ", sample_paragraph)
+                    print(f"\nSample paragraph: ", sample_paragraph)
                     break
             else:
                 if len(paragraphs[str(sample_paragraph_number)]) > 1000:
                     sample_paragraph = paragraphs[str(sample_paragraph_number)][0:1000]
-                    print("Sample paragraph: ", sample_paragraph)
+                    print(f"\nSample paragraph: ", sample_paragraph)
                 else:
                     sample_paragraph = paragraphs[str(sample_paragraph_number)]
-                    print("Sample paragraph: ", paragraphs[str(sample_paragraph_number)])
+                    print(f"\nSample paragraph: ", paragraphs[str(sample_paragraph_number)])
         else: 
             sample_paragraph = "No paragraphs identified in file"
 
-        id += 1
-        print(f'Record number: {id}')
-
-        print("--- %s seconds for record to complete---" % (time.time() - record_start_time))
-
-    print("--- %s seconds for batch job to complete---" % (time.time() - start_time))
+    print("")
+    print("--- %s seconds for job to complete---" % (time.time() - start_time))
+    print("")
 
 if __name__ == "__main__":
     get_EEBO()
