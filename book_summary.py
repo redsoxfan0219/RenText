@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ET
 import re
 import os
 import random
-import sqlite3
 import time
 
 
