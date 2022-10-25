@@ -21,7 +21,7 @@ def __get_data__(file, tcp_no,folder):
 
     return tree, root
 
-def __output_text_file(file, tcp_no, xml, folder):
+def __output_text_file__(file, tcp_no, xml, folder):
     '''
     Outputs a plain .txt file with the tagless file content.
     '''
@@ -213,15 +213,12 @@ def get_EEBO():
         else: 
             sample_paragraph = "No paragraphs identified in file"
 
+        id += 1
+        print(f'Record number: {id}')
+
         print("--- %s seconds for record to complete---" % (time.time() - record_start_time))
 
     print("--- %s seconds for batch job to complete---" % (time.time() - start_time))
 
-    # conn = sqlite3.connect(database, timeout=60)
-    # cur = conn.cursor()
-    # cur.execute("INSERT INTO books VALUES(?,?,?,?,?,?,?)", (id, eebo_tcp_number, title, author, publication_date, lines_collected, sample_paragraph))   
-    # conn.commit()
-    # conn.close()
-    # id += 1
 if __name__ == "__main__":
     get_EEBO()
