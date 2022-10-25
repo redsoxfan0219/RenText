@@ -163,7 +163,7 @@ def get_EEBO():
         print(f"TCP number: {tcp_no}")
         print(f"Title: {title}")
         print(f"Author: {author}")
-        if publication_date == 0000:
+        if publication_date == 9999:
             print("Error determining publication date")
         else:
             print(f"Publication Year: {publication_date}") 
