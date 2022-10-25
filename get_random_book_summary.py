@@ -12,12 +12,8 @@ class book:
 
         self.tcp_no = tcp_no
         self.file = f'{tcp_no}.P4.xml'
-        self.publication_date = ""
         self.tree = ET.parse(f'{self.source_path}/{self.file}')
         self.root = self.tree.getroot()
-        self.lines_collected = ""
-        self.paragraphs = {}
-        self.sample_paragraph = ""
 
         def __add_title__(self):
 
@@ -47,7 +43,7 @@ class book:
                     continue
                 else:
                     four_digit_year = int(text_no_letters_or_punc[:4])
-            if four_digit_year > 1450 and four_digit_year < 1750 and    four_digit_year != "":
+            if four_digit_year > 1450 and four_digit_year < 1750 and four_digit_year != "":
                 publication_date = four_digit_year
                 
             return publication_date
@@ -70,6 +66,7 @@ class book:
         def __get_paragraphs__(self):
 
             id = 1
+            paragraphs = {}
 
             for child in self.root[1][1].iter():
                 if child.tag == "P":
@@ -99,7 +96,8 @@ class book:
         if (self.lines is None) or (len(self.lines) == 0):
             print("\nLength of the lines dictionary: 0") 
             lines_collected = "NA"
-            print(f'\nLines sample: {self.lines_collected}')
+            print("\nLines sample: N/A") 
+
 
         else:
             print("\nLength of the lines dictionary: ", len(self.lines))
@@ -114,9 +112,6 @@ class book:
                 print("     ", lines[str(sample_line_number+3)])
                 print("     ", lines[str(sample_line_number+4)])
 
-                self.lines_collected = self.lines[str(sample_line_number)] + " / " + self.lines[str(sample_line_number+1)] + " / " + self.lines[str(sample_line_number+2)] + " / " + self.lines[str(sample_line_number+3)] + " / " + self.lines[str(sample_line_number+4)]
-                print(lines_collected)
-
         if (self.paragraphs is None) or (len(self.paragraphs) == 0):
             print("\nLength of the paragraphs dictionary: 0")  
 
@@ -130,17 +125,20 @@ class book:
                 sample_paragraph_number = random.randint(1, (len(self.paragraphs)))
                 if time.time() > timeout:
                     sample_paragraph = self.paragraphs[str(sample_paragraph_number)]
-                    print("\nSample paragraph: ", sample_paragraph)
+                    print("\nSample paragraph: ")
+                    print(sample_paragraph)
                     print("")
                     break
             else:
                 if len(self.paragraphs[str(sample_paragraph_number)]) > 1000:
                     sample_paragraph = self.paragraphs[str(sample_paragraph_number)][0:1000]
-                    print("\nSample paragraph: ", sample_paragraph)
+                    print("\nSample paragraph: ")
+                    print(sample_paragraph)
                     print("")
                 else:
                     sample_paragraph = self.paragraphs[str(sample_paragraph_number)]
-                    print("\nSample paragraph: ", self.paragraphs[str(sample_paragraph_number)])
+                    print("\nSample paragraph:")
+                    print(self.paragraphs[str(sample_paragraph_number)])
                     print("")
         else: 
             sample_paragraph = "\nNo paragraphs identified in file"            
