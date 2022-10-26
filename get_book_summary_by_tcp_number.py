@@ -102,7 +102,7 @@ def __get_lines__(xml):
             if line_text is not None:
                 cleaned_line_text = re.sub('[^0-9a-zA-Z\&,;:?\-\'\.\s\|\b]+','',line_text)
                 final_line_text = cleaned_line_text.replace("\n","")
-                id_str = str(id)
+                id_str = str(lines_id)
                 lines_dict[f'{id_str}'] = final_line_text
                 lines_id += 1 
 
@@ -178,7 +178,7 @@ def get_EEBO():
             print(f'\nLines sample: {lines_collected}')
 
         else:
-            print("Length of the lines dictionary: ", len(lines))
+            print("\nLength of the lines dictionary: ", len(lines))
             line_dict_length = len(lines)
             sample_line_number = 0
             if line_dict_length > 6:
@@ -190,8 +190,8 @@ def get_EEBO():
                 print("     ", lines[str(sample_line_number+3)])
                 print("     ", lines[str(sample_line_number+4)])
 
-                lines_collected = lines[str(sample_line_number)] + " / " + lines[str(sample_line_number+1)] + " / " + lines[str(sample_line_number+2)] + " / " + lines[str(sample_line_number+3)] + " / " + lines[str(sample_line_number+4)]
-                print(lines_collected)
+                # lines_collected = lines[str(sample_line_number)] + " / " + lines[str(sample_line_number+1)] + " / " + lines[str(sample_line_number+2)] + " / " + lines[str(sample_line_number+3)] + " / " + lines[str(sample_line_number+4)]
+                # print(lines_collected)
 
         if (paragraphs is None) or (len(paragraphs) == 0):
             print(f"\nLength of the paragraphs dictionary: 0")  

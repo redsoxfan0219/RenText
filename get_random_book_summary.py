@@ -43,8 +43,8 @@ class book:
                     continue
                 else:
                     four_digit_year = int(text_no_letters_or_punc[:4])
-            if four_digit_year > 1450 and four_digit_year < 1750 and four_digit_year != "":
-                publication_date = four_digit_year
+                    if four_digit_year > 1450 and four_digit_year < 1750 and four_digit_year != "":
+                        publication_date = four_digit_year
                 
             return publication_date
 
@@ -58,7 +58,7 @@ class book:
                     if line_text is not None:
                         cleaned_line_text = re.sub('[^0-9a-zA-Z\&,;:?\-\'\.\s|\b]+','',line_text)
                         final_line_text = cleaned_line_text.replace("\n","")
-                        id_str = str(id)
+                        id_str = str(lines_id)
                         lines_dict[f'{id_str}'] = final_line_text
                         lines_id += 1 
             return lines_dict
@@ -76,6 +76,9 @@ class book:
                     id_str = str(id)
                     paragraphs[f'{id_str}'] = final_paragraph_text
                     id += 1 
+            if len(paragraphs) == 1:
+                return paragraphs['<built-in function id>']
+            else:
             return paragraphs
 
         __get_paragraphs__(self)
@@ -96,7 +99,7 @@ class book:
         if (self.lines is None) or (len(self.lines) == 0):
             print("\nLength of the lines dictionary: 0") 
             lines_collected = "NA"
-            print("\nLines sample: N/A") 
+            print(f"\nLines sample: {lines_collected}") 
 
 
         else:
@@ -106,11 +109,19 @@ class book:
             if line_dict_length > 6:
                 sample_line_number = random.randint(1, line_dict_length-5)
                 print("\nSample lines: ")
-                print("     ", lines[str(sample_line_number)])
-                print("     ", lines[str(sample_line_number+1)])
-                print("     ", lines[str(sample_line_number+2)])
-                print("     ", lines[str(sample_line_number+3)])
-                print("     ", lines[str(sample_line_number+4)])
+                print("     ", self.lines[str(sample_line_number)])
+                print("     ", self.lines[str(sample_line_number+1)])
+                print("     ", self.lines[str(sample_line_number+2)])
+                print("     ", self.lines[str(sample_line_number+3)])
+                print("     ", self.lines[str(sample_line_number+4)])
+            elif (line_dict_length <6) and (line_dict_length>1) :
+                for i in range(1,len(line_dict_length)):
+                    print("\nSample lines: ")
+                    print("     ", self.lines[str(i)])
+            elif line_dict_length == 1:
+                print("\nSample line: ")
+                print("     ", self.lines['<built-in function id>'])
+
 
         if (self.paragraphs is None) or (len(self.paragraphs) == 0):
             print("\nLength of the paragraphs dictionary: 0")  
