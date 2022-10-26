@@ -79,9 +79,8 @@ class book:
             if len(paragraphs) == 1:
                 return paragraphs['<built-in function id>']
             else:
-            return paragraphs
+                return paragraphs
 
-        __get_paragraphs__(self)
         self.title = __add_title__(self)
         self.author = __add_author__(self)
         self.publication_date = __add_publication_date__(self)
