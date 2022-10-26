@@ -8,16 +8,6 @@ import pandas as pd
 from datetime import datetime
 import sys
 
-import xml.etree.ElementTree as ET
-import re
-import os
-import random
-import time
-from collections import OrderedDict
-import pandas as pd
-from datetime import datetime
-import sys
-
 text_path = '/Users/benjaminmoran/Desktop/eebo_strings'
 xml_path = '/Users/benjaminmoran/eebo_tcp_data/data/eebo_raw/eebo_raw_combined'
 
