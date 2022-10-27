@@ -42,6 +42,20 @@ def __clean_dataframe__(dataframe):
     books_df['cleaned_year'] = final_col
     cleaned_books_df = books_df
 
+    # Discovered an issue with TCP_Number=B09391. Relying upon the terminus ad quem
+    # as the "clean" date is setting this book's year date to 2005. The XML tag only 
+    # speculates that this is 'after 1743?'
+
+    # Frankly, I don't know why this file was included in EEBO TCP (rahter than ECCO)
+
+    # Deleting the record outright seems a bigger potential headache (discrepancies
+    # between my "cleaned" inventory and TCP's official inventory, etc.). Given
+    # that, however I handle it, it'll be an outlier, manually assigning this record
+    # a value of '1744' (i.e., after 1743) seems as fine an option as anything else.
+    # Index value of this record if 56361.
+
+    cleaned_books_df.loc[56361, "cleaned_year"] = '1744'
+
     # Ran the line to print a static file that I can use for later.
 
     # cleaned_books_df.to_csv('cleaned_tcp_nav.csv', index=False)
