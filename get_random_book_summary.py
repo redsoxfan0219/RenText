@@ -114,7 +114,7 @@ class book:
                 print("     ", self.lines[str(sample_line_number+3)])
                 print("     ", self.lines[str(sample_line_number+4)])
             elif (line_dict_length <6) and (line_dict_length>1) :
-                for i in range(1,len(line_dict_length)):
+                for i in range(1, line_dict_length):
                     print("\nSample lines: ")
                     print("     ", self.lines[str(i)])
             elif line_dict_length == 1:
